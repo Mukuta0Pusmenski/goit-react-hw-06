@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { changeFilter } from '../../redux/filtersSlice';
 import './SearchBox.module.css';
 
-const SearchBox = ({ setSearchTerm }) => {
+const SearchBox = () => {
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+    dispatch(changeFilter(e.target.value));
   };
 
   return (
