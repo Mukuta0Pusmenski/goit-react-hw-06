@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/filtersSlice';
+import { changeFilter } from '.../redux/filtersSlice';
 import './SearchBox.module.css';
 
 const SearchBox = () => {
