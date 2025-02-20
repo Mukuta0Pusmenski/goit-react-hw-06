@@ -6,7 +6,6 @@ import './App.module.css';
 
 const App = () => {
   const [contacts, setContacts] = useState(() => {
-    // Завантаження контактів з локального сховища під час першого рендерингу
     const savedContacts = localStorage.getItem('contacts');
     return savedContacts ? JSON.parse(savedContacts) : [];
   });
