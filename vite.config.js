@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['formik', 'react-redux', 'yup']
+      external: ['formik', 'react-redux', 'yup', '@reduxjs/toolkit']
     }
   }
 });
