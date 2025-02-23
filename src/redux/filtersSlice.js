@@ -10,5 +10,8 @@ const filtersSlice = createSlice({
   },
 });
 
+// Експортуємо selectNameFilter для використання в селекторах
+export const selectNameFilter = (state) => state.filters.name;
+
 export const { changeFilter } = filtersSlice.actions;
 export default filtersSlice.reducer;
