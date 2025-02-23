@@ -1,40 +1,24 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import store, { persistor } from './redux/store';
 import ContactList from './components/ContactList/ContactList.jsx';
 import SearchBox from './components/SearchBox/SearchBox.jsx';
-import ContactForm from './components/ContactForm/ContactForm.jsx'; // Додаємо імпорт
+import ContactForm from './components/ContactForm/ContactForm.jsx';
 import './App.module.css';
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    const savedContacts = localStorage.getItem('contacts');
-    return savedContacts ? JSON.parse(savedContacts) : [];
-  });
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    // Збереження контактів у локальному сховищі при зміні масиву контактів
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
-  const addContact = (newContact) => {
-    setContacts([...contacts, newContact]);
-  };
-
-  const deleteContact = (id) => {
-    setContacts(contacts.filter(contact => contact.id !== id));
-  };
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
-    <div className="App">
-      <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} /> {/* Додаємо компонент ContactForm */}
-      <SearchBox setSearchTerm={setSearchTerm} />
-      <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="App">
+          <h1>Phonebook</h1>
+          <ContactForm />
+          <SearchBox />
+          <ContactList />
+        </div>
+      </PersistGate>
+    </Provider>
   );
 };
 

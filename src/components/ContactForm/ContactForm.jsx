@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 import './ContactForm.module.css';
 
 const validationSchema = Yup.object({
@@ -15,14 +17,16 @@ const validationSchema = Yup.object({
     .max(50, 'Maximum 50 characters'),
 });
 
-const ContactForm = ({ addContact }) => {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
         const id = nanoid();
-        addContact({ ...values, id });
+        dispatch(addContact({ ...values, id }));
         resetForm();
       }}
     >
